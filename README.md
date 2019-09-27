@@ -7,7 +7,7 @@ NOTE: This application is heavily based on the ML-Examples on the [ARM-software 
 
 This is the example code used in Arm's [Deploying a TensorFlow MNIST model on Arm NN](https://developer.arm.com/technologies/machine-learning-on-arm/developer-material/how-to-guides/) tutorial - a more detailed description can be found there.
 
-The application mnist_tf.cpp reads from a TensorFlow model.
+The application mnist\_tf\_convol.cpp reads from a TensorFlow model.
 Models are stored in the model/ directory in two formats: protobuf binary and protobuf text.
 Data is stored in directory data/ in a simple format designed for storing vectors and n-d matrices. It contains the test set only.
 
@@ -22,8 +22,8 @@ You will need the Arm NN SDK, available from the [Arm NN SDK site](https://devel
 
 Edit the Makefile and change ARMNN_LIB and ARMNN_INC to point to the library and include directories of your Arm NN installation:
 
-    ARMNN_LIB = ${HOME}/armnn-devenv/armnn/build
-    ARMNN_INC = ${HOME}/armnn-devenv/armnn/include
+    ARMNN_LIB = ${HOME}/armnn/build
+    ARMNN_INC = ${HOME}/armnn/include
 
 You can then build and run the examples with:
 ```bash
@@ -32,8 +32,7 @@ cd mnist-demo
 make test
 ```
 
-This builds and runs two different TensorFlow models from model/ and performs a hardcoded number of inferences on the MNIST data set in data/.
+This builds and runs the application on the Cortex-A CPU with 10 MNIST digits.
 
 The purpose of these examples is to demonstrate how to use Arm NN to load and execute TensorFlow models in a C++ application.
 
-For information about how to profile with Arm Streamline refer to the file mnist-demo.pdf
