@@ -6,7 +6,7 @@ all: mnist_tf_convol reminder
 mnist_tf_convol: mnist_tf_convol.cpp mnist_loader.hpp
 	g++ -O3 -g -std=c++17 $< -o $@ \
 		-I$(ARMNN_INC)  \
-		-L$(ARMNN_LIB) -larmnn -larmnnTfParser -lpthread
+		-L$(ARMNN_LIB) -larmnn -larmnnTfLiteParser -lpthread
 
 clean:
 	-rm -f mnist_tf_convol

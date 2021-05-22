@@ -15,7 +15,7 @@
 #include "armnn/Exceptions.hpp"
 #include "armnn/Tensor.hpp"
 #include "armnn/INetwork.hpp"
-#include "armnnTfParser/ITfParser.hpp"
+#include "armnnTfLiteParser/ITfLiteParser.hpp"
 
 #include "mnist_loader.hpp"
 
@@ -74,14 +74,17 @@ int main(int argc, char** argv)
     }
 
     // Import the TensorFlow model. Note: use CreateNetworkFromBinaryFile for .pb files.
-    armnnTfParser::ITfParserPtr parser = armnnTfParser::ITfParser::Create();
+    armnnTfLiteParser::ITfLiteParserPtr parser = armnnTfLiteParser::ITfLiteParser::Create();
+    armnn::INetworkPtr network = parser->CreateNetworkFromBinaryFile("model/convol_mnist_tf.pb");
+/*
     armnn::INetworkPtr network = parser->CreateNetworkFromBinaryFile("model/convol_mnist_tf.pb",
                                                                    { {"input_tensor", {nrOfImages, 784, 1, 1}} },
                                                                    { "fc2/output_tensor" });
+*/
 
     // Find the binding points for the input and output nodes
-    armnnTfParser::BindingPointInfo inputBindingInfo = parser->GetNetworkInputBindingInfo("input_tensor");
-    armnnTfParser::BindingPointInfo outputBindingInfo = parser->GetNetworkOutputBindingInfo("fc2/output_tensor");
+    armnnTfLiteParser::BindingPointInfo inputBindingInfo = parser->GetNetworkInputBindingInfo(0, "input_tensor");
+    armnnTfLiteParser::BindingPointInfo outputBindingInfo = parser->GetNetworkOutputBindingInfo(0, "fc2/output_tensor");
 
     // Create ArmNN runtime
     armnn::IRuntime::CreationOptions options; // default options
